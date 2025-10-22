@@ -1,9 +1,9 @@
-name: 🚀 Publish smart-env-helper to npm
+name: 🚀 Auto Bump & Publish smart-env-helper
 
 on:
   push:
-    tags:
-      - 'v*.*.*' # Triggers only when version tags are pushed (e.g. v1.0.0)
+    branches:
+      - main
 
 jobs:
   build-and-publish:
@@ -28,6 +28,13 @@ jobs:
       - name: 🧪 Run tests (optional)
         if: hashFiles('**/test/**') != ''
         run: npm test
+
+      - name: 🔢 Auto bump version
+        run: |
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          npm version patch -m "ci: bump version to %s [skip ci]"
+          git push origin main --tags
 
       - name: 🚀 Publish to npm
         run: npm publish --access public
