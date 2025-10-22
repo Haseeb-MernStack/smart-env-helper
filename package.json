@@ -1,6 +1,6 @@
 {
   "name": "smart-env-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Type-safe .env validator and generator for Node.js and MERN stack projects",
   "main": "dist/index.js",
   "bin": {
