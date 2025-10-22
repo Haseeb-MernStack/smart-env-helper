@@ -1,0 +1,35 @@
+name: 🚀 Publish smart-env-helper to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*' # Triggers only when version tags are pushed (e.g. v1.0.0)
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧩 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build TypeScript
+        run: npm run build
+
+      - name: 🧪 Run tests (optional)
+        if: hashFiles('**/test/**') != ''
+        run: npm test
+
+      - name: 🚀 Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
