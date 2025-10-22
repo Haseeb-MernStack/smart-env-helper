@@ -4,7 +4,7 @@
   "description": "Type-safe .env validator and generator for Node.js and MERN stack projects",
   "main": "dist/index.js",
   "bin": {
-    "smart-env-helper": "./dist/cli.js"
+    "smart-env-helper": "dist/cli.js"
   },
   "scripts": {
     "build": "tsc",
